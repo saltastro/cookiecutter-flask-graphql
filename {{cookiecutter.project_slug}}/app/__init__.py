@@ -3,8 +3,8 @@
 __author__ = """{{ cookiecutter.full_name }}"""
 __version__ = '{{ cookiecutter.version }}'
 
-{% if cookiecutter.log_file_path %}import os
-import logging
+{% if cookiecutter.log_file_path or cookiecutter.use_sentry == "yes" %}import os
+{% endif %}{% if cookiecutter.log_file_path %}import logging
 from logging.handlers import RotatingFileHandler
 {% endif %}from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy{% if cookiecutter.use_sentry == "yes" %}
@@ -30,8 +30,7 @@ def log_exception(e):
 
 db = SQLAlchemy()
 
-# this import can only happen after db is created, as otherwise there will be a
-# cyclic import error
+# these imports can only happen here as otherwise there might be import errors
 from app.auth import verify_token  # noqa E402
 from app.main import main  # noqa E402
 from app.graphql import graphql  # noqa E402

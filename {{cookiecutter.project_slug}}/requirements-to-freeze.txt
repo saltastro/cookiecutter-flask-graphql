@@ -6,7 +6,7 @@ flask_sqlalchemy
 graphene
 pandas
 PyJWT
-PyMySQL{% if cookiecutter.use_sentry == "y" %}
+PyMySQL{% if cookiecutter.use_sentry == "yes" %}
 sentry-sdk[flask]{% endif %}
 snapshottest
 
