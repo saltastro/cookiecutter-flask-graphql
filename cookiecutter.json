@@ -1,0 +1,16 @@
+{
+  "full_name": "Your Name",
+  "email": "your@email.example.com",
+  "project_name": "Project Name",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "All the boilerplate you need to create a Python package.",
+  "version": "0.1.0",
+  "log_file_path": "",
+  "log_file_max_bytes": 1000000,
+  "log_file_backup_count": 10,
+  "use_sentry": ["yes", "no"],
+  "github_username": "github_username",
+  "github_repository": "{{ cookiecutter.project_slug }}",
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "install_requirements": ["yes", "no"]
+}
