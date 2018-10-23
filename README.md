@@ -1,4 +1,4 @@
-# cookiecutter-python-package
+# cookiecutter-flask-graphql
 
 A boilerplate for a Flask server with a GraphQL API. It is based on [Audrey Roy Greenfeld's pypackage cookiecutter](https://github.com/audreyr/cookiecutter-pypackage). The Flask configuration and the file layout have been adapted from the ones in Miguel Grinberg's *Web Development with Flask*, Second Edition (O'Reilly, 2018).
 
