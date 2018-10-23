@@ -3,8 +3,8 @@
 __author__ = """{{ cookiecutter.full_name }}"""
 __version__ = '{{ cookiecutter.version }}'
 
-{% if cookiecutter.log_file_path or cookiecutter.use_sentry == "yes" %}import os
-{% endif %}{% if cookiecutter.log_file_path %}import logging
+{% if cookiecutter.log_to_file == "yes" or cookiecutter.use_sentry == "yes" %}import os
+{% endif %}{% if cookiecutter.log_to_file == "yes" %}import logging
 from logging.handlers import RotatingFileHandler
 {% endif %}from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy{% if cookiecutter.use_sentry == "yes" %}
@@ -39,10 +39,13 @@ def create_app(config_name):
     app = Flask('__name__')
     app.config.from_object(config[config_name])
 
-    db.init_app(app){% if cookiecutter.log_file_path %}
+    db.init_app(app){% if cookiecutter.log_to_file == "yes" %}
 
     # logging to file
-    handler = RotatingFileHandler('{{ cookiecutter.log_file_path }}',
+    log_file_path = app.config.LOG_FILE_PATH
+    if not log_file_path:
+        raise Exception('The environment variable LOG_FILE_PATH is not defined')
+    handler = RotatingFileHandler(log_file_path,
                                   maxBytes={{ cookiecutter.log_file_max_bytes }},
                                   backupCount={{ cookiecutter.log_file_backup_count }})
     formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %('
@@ -51,10 +54,10 @@ def create_app(config_name):
     app.logger.addHandler(handler){% endif %}{% if cookiecutter.use_sentry == "yes" %}
 
     # setting up Sentry
-    sentry_dsn = os.getenv('SENTRY_DSN', '')
+    sentry_dsn = app.config.SENTRY_DSN
     if not sentry_dsn:
-        app.logger.info('There is no SENTRY_DSN environment variable, or its value is '
-                        'an empty string')
+        app.logger.info('No value is defined for SENTRY_DSN. Have you defined an '
+                        'environment variable with this name?')
     sentry_sdk.init(
         dsn=sentry_dsn,
         integrations=[FlaskIntegration()]

@@ -5,7 +5,7 @@
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "All the boilerplate you need to create a Python package.",
   "version": "0.1.0",
-  "log_file_path": "",
+  "log_to_file": ["yes", "no"],
   "log_file_max_bytes": 1000000,
   "log_file_backup_count": 10,
   "use_sentry": ["yes", "no"],

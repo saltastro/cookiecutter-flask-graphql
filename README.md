@@ -21,6 +21,7 @@ export DEV_DATABASE_URI="mysql+pymysql://user:password@your.db.host/dev_db_name"
 export TEST_DATABASE_URI="mysql+pymysql://user:password@your.db.host/test_db_name"
 export DATABASE_URI="mysql+pymysql://user:password@your.db.host/db_name"
 export JWT_SECRET_KEY=topsecret
+export LOG_FILE_PATH=/path/to/log_file
 export DSN_KEY=https://somecrypticstring@sentry.io/somenumber  # this is optional
 make start
 ```
@@ -45,7 +46,7 @@ When using the template, cookiecutter asks you for various input:
 
 `version`. The version.
 
-`log_file_path`. The file path for the log file. The file will be created automatically by Flask if it doesn't exist. If no file path is given, no logging to file is done. See the Python documentation on logging in general and that on rotating file handlers in particular for details on how logging is done.
+`log_to_file`. Whether to log to file. Logging to file requires the `LOG_FILE_PATH` environment variable to be defined. See the Python documentation on logging in general and that on rotating file handlers in particular for details on how logging is done.
 
 `log_file_max_bytes`. The maximum file size of the log file, in bytes. The file content will be removed (or moved to a backup) once this limit is reached.
 
@@ -179,6 +180,7 @@ DEV_DATABASE_URI | Database URI for development | mysql+pymysql://user:password@
 TEST_DATABASE_URI | Database URI for tests | mysql+pymysql://user:password@your.db.host/test_db_name
 DATABASE_URI | Database URI for production | mysql+pymysql://user:password@your.db.host/db_name
 JWT_SECRET_KEY | Secret key for encoding JWT tokens | topsecret
+LOG_FILE_PATH | Path to the log file | /path/to/log_file
 SENTRY_DSN | Sentry DSN | https://somecrypticstring@sentry.io/somenumber
 
 Note that the database URIs start with `mysql+pymysql` - the `+pymysql` is necessary.

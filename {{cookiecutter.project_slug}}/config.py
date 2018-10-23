@@ -5,7 +5,9 @@ import os
 class Config:
     DEBUG = False
     TESTING = False
-    JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']
+    JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']{% if cookiecutter.log_to_file == "yes" %}
+    LOG_FILE_PATH = os.environ['LOG_FILE_PATH']{% endif %}{% if cookiecutter.use_sentry == "yes" %}
+    SENTRY_DSN = os.getenv('SENTRY_DSN'){% endif %}
 
     @staticmethod
     def init_app(app):
