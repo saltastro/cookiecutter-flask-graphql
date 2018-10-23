@@ -42,7 +42,7 @@ def create_app(config_name):
     db.init_app(app){% if cookiecutter.log_to_file == "yes" %}
 
     # logging to file
-    log_file_path = app.config.LOG_FILE_PATH
+    log_file_path = app.config['LOG_FILE_PATH']
     if not log_file_path:
         raise Exception('The environment variable LOG_FILE_PATH is not defined')
     handler = RotatingFileHandler(log_file_path,
@@ -54,7 +54,7 @@ def create_app(config_name):
     app.logger.addHandler(handler){% endif %}{% if cookiecutter.use_sentry == "yes" %}
 
     # setting up Sentry
-    sentry_dsn = app.config.SENTRY_DSN
+    sentry_dsn = app.config['SENTRY_DSN']
     if not sentry_dsn:
         app.logger.info('No value is defined for SENTRY_DSN. Have you defined an '
                         'environment variable with this name?')
