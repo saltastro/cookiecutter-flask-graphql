@@ -3,8 +3,7 @@
 __author__ = """{{ cookiecutter.full_name }}"""
 __version__ = '{{ cookiecutter.version }}'
 
-{% if cookiecutter.log_to_file == "yes" or cookiecutter.use_sentry == "yes" %}import os
-{% endif %}{% if cookiecutter.log_to_file == "yes" %}import logging
+{% if cookiecutter.log_to_file == "yes" %}import logging
 from logging.handlers import RotatingFileHandler
 {% endif %}from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy{% if cookiecutter.use_sentry == "yes" %}
